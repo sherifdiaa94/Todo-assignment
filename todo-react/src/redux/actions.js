@@ -11,3 +11,11 @@ export function removetodo(todoID){
         todoID
     }
 }
+
+
+export function changetodo(todoID){
+    return{
+        type: 'CHANGE_TODO',
+        todoID
+    }
+}

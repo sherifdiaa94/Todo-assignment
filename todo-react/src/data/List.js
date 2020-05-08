@@ -1,3 +1,5 @@
+//This will be got from node JS using GET API
+
 const todoList=[
     {id:0,
     item:"First todo item"},

@@ -1,47 +1,21 @@
-import React,{Component} from 'react';
-import './App.scss';
-import { Button,ListItem,OrderedList,Tile,Form, FormGroup,TextInput } from "carbon-components-react";
+import Main from './Main'
+import {connect} from 'react-redux'
+import * as actions from './redux/actions'
+import {withRouter} from 'react-router'
+import {bindActionCreators} from 'redux'
 
 
-class App extends Component{
-  constructor(){
-      super()
-  }
-  render(){
-    return (
-      <div className="App">
-        <Tile className="Title-header">
-          Todo List
-        </Tile>
-        <Form>
-        <FormGroup>
-          <TextInput
-            //helperText="Enter below "
-            id="test2"
-            invalidText="Invalid error message."
-            placeholder="Enter here"
-          />
-        </FormGroup>
-        <Button>
-          Submit
-        </Button>
-        <OrderedList className="List">
-              <ListItem>First todo</ListItem>
-              <ListItem>Ordered List level 1</ListItem>
-              <ListItem>Ordered List level 1</ListItem>
-        </OrderedList>
-        </Form>
-      </div>
-    );
-  }
+
+function mapStateToProps(state){
+    return {
+        list: state.list
+    }
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <Button>Button</Button>
-//     </div>
-//   );
-// }
+function mapDispatchToProps(dispatch){
+    return bindActionCreators(actions,dispatch)
+}
+const App = connect(mapStateToProps,mapDispatchToProps)(Main)
 
-export default App;
+
+export default App
