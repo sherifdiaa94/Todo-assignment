@@ -2,21 +2,22 @@ import React,{Component} from 'react';
 import './Main.scss';
 import { Button,ListItem,OrderedList,Tile,Form, FormGroup,TextInput } from "carbon-components-react";
 import store from './index'
+import TodoList from './todolist.js'
 
 class Main extends Component{
   constructor(){
       super()
   }
   render(){
-    console.log(this.props);
-    console.log("Main log");
+    //console.log(this.props);
     return (
       
       <div className="App">
         <Tile className="Title-header">
           Todo List
         </Tile>
-        <Form>
+        <TodoList {...this.props}/>
+        {/* <Form>
         <FormGroup>
           <TextInput
             //helperText="Enter below "
@@ -29,11 +30,11 @@ class Main extends Component{
           Submit
         </Button>
         <OrderedList className="List">
-              <ListItem>First todo</ListItem>
-              <ListItem>Ordered List level 1</ListItem>
-              <ListItem>Ordered List level 1</ListItem>
+              <ListItem>{this.props.list[0].item}</ListItem>
+              <ListItem>{this.props.list[1].item}</ListItem>
+              <ListItem>{this.props.list[2].item}</ListItem>
         </OrderedList>
-        </Form>
+        </Form> */}
       </div>
 
     );

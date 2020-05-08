@@ -6,6 +6,7 @@ export function addtodo(todo){
 }
 
 export function removetodo(todoID){
+    console.log(todoID)
     return{
         type: 'REMOVE_TODO',
         todoID
