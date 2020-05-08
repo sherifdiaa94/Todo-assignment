@@ -15,7 +15,7 @@ function list(state=todolist,action){ //initial state will be the inital todo li
    
     if (action.type==="ADD_TODO"){
         console.log(state);
-        return [...state,todotemp]; //todotemp will be changed to action.todo to take the new todo
+        return [...state,action.todo]; //todotemp will be changed to action.todo to take the new todo
     }else if(action.type==="REMOVE_TODO"){
         return state.filter(item=>item.id !== action.todoID);
     }else if(action.type==="CHANGE_TODO"){

@@ -3,6 +3,7 @@ import './Main.scss';
 import { Button,ListItem,OrderedList,Tile,Form, FormGroup,TextInput } from "carbon-components-react";
 import store from './index'
 import TodoList from './todolist.js'
+import AddTodo from './AddTodo'
 
 class Main extends Component{
   constructor(){
@@ -16,6 +17,7 @@ class Main extends Component{
         <Tile className="Title-header">
           Todo List
         </Tile>
+        <AddTodo {...this.props}/>
         <TodoList {...this.props}/>
         {/* <Form>
         <FormGroup>
