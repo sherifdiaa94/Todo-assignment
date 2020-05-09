@@ -38,5 +38,26 @@ app.post('/todoApp/api/todos', function (req,res){
   res.json(todoList);
 });
 
+app.delete('/todoApp/api/todos/:id', function (req,res){
+
+  if(todoList.length!==0){
+  var indexof = todoList.findIndex(obj => obj.id==req.params.id);
+  if (indexof<0){
+    res.send('Invalid Item');
+    }
+  else{
+        console.log(todoList[indexof])
+        const index=req.params.id
+      if (indexof > -1) {
+        todoList.splice(indexof, 1);
+      }
+      res.json(todoList);
+    }
+  }
+  else{
+    res.json(todoList);
+  }
+});
+
 app.listen(81);
 
