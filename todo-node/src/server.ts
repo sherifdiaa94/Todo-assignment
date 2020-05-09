@@ -1,5 +1,6 @@
 import * as express from 'express';
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,13 +19,73 @@ let todoList=[
     item:"Third todo item"}
 ];
 
+//express.Request
+function Middleware1(request, response, next) {
+  if (request.path!=="/todoApp/api/health"){
+  console.log(`${request.method} ${request.path}`);
+  var fs = require('fs');
+  // var jsonObj = JSON.parse(request);
+  // console.log(jsonObj);
+ 
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key, value) => {
+      if (typeof value === "object" && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+  
+  let jsonRequest=JSON.stringify(request,getCircularReplacer());
+
+  //console.log(jsonContent);
+  
+  fs.appendFileSync("Logfile.log","\n\nRequest: \n", 'utf8',function(err) {
+    if (err) {
+        console.log(err);
+    }
+  });
+
+  fs.appendFileSync("Logfile.log",jsonRequest, 'utf8',function(err) {
+    if (err) {
+        console.log(err);
+    }
+  });
+  
+
+  let jsonResponse=JSON.stringify(response,getCircularReplacer());
+  fs.appendFileSync("Logfile.log","\n\nResponse: \n", 'utf8',function(err) {
+    if (err) {
+        console.log(err);
+    }
+  });
+
+  fs.appendFileSync("Logfile.log",jsonResponse, 'utf8',function(err) {
+    if (err) {
+        console.log(err);
+    }
+  });
+  
+  next();
+  }
+}
+
+
+app.use(Middleware1);
+
 app.get('/todoApp/api/health', function(req, res) {
-  res.send('Testing API');
+  res.send('Node server is up and running on port 81');
   
 });
  
 app.get('/todoApp/api/todos', function(req, res) {
   res.json(todoList);
+  //res.send(todoList);
+  //Middleware1(req,res,next)
 });
 
 app.get('*', function(req, res){
@@ -32,9 +93,9 @@ app.get('*', function(req, res){
 });
 
 app.post('/todoApp/api/todos', function (req,res){
-  console.log(req.body)
+  //console.log(req.body)
   todoList.push(req.body);
-  console.log("Item added")
+  //console.log("Item added")
   res.json(todoList);
 });
 
