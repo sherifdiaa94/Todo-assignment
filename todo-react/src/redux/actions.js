@@ -18,8 +18,8 @@ export const addtodo = ({ id, item }) => {
     };
   };
   const addTodoFailure = error => ({
-    type: 'ERROR',
-    msg: error
+    type: 'ERROR_ADD',
+    msg: "Failed to add item to the list"
   });
 
   export function addTodoSuccess(todo){
@@ -60,8 +60,8 @@ export const removetodo = (id) => {
     }
 }
 const removeTodoFailure = error => ({
-    type: 'ERROR',
-    msg: error
+    type: 'ERROR_REMOVE',
+    msg: "Failed to remove item to the list"
   });
 
 
@@ -89,7 +89,7 @@ export const fetchData = () => {
             .then(json => dispatch(
                 { type: "FetchData", datatest: json }))
             .catch(err => dispatch(
-                { type: "ERRORFETCH",msg: "Failed to fetch data" }))
+                { type: "ERROR_FETCH",msg: "Failed to fetch data" }))
     }}
 
 

@@ -20,7 +20,11 @@ function list(state=[],action){ //initial state will be the inital todo list    
         return state.map(todo=>todo.id !== action.todoID ? todo : {...todo,item: todotemp.item});  //todotemp.item will be action.todo.item
     }else if(action.type==="FetchData"){
         return ( action.datatest )
-    }else if(action.type==="ERRORFETCH"){
+    }else if(action.type==="ERROR_FETCH"){
+        return {...state,error:action.msg}
+    }else if(action.type==="ERROR_ADD"){
+        return {...state,error:action.msg}
+    }else if(action.type==="ERROR_REMOVE"){
         return {...state,error:action.msg}
     }else{ 
         return state
