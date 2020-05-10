@@ -87,26 +87,23 @@ export const fetchData = () => {
         return fetch('http://localhost:81/todoApp/api/todos')
             .then(response => response.json())
             .then(json => dispatch(
-                { type: "FetchData", datatest: json }))
+                { type: "FETCH_DATA", todolist: json }))
             .catch(err => dispatch(
                 { type: "ERROR_FETCH",msg: "Failed to fetch data" }))
     }}
 
 
-// export const fetchData = () => {
-
-//         return (dispatch) => {
-//             return fetch('http://localhost:81/todoApp/api/todos')
-//                 .then(response => response.json())
-//                 .then(res => {
-//                     if(res.error) {
-//                         throw(res.error);
-//                     }
-//                     dispatch({ type: "FetchData", datatest: res })                   
-//                 })
-//                 .catch(err => dispatch(
-//                      { type: "ERROR",msg: "Unable to fetch data" }))
-              
-//         }}
+export const checkHealth = () => {
+    return (dispatch) => {
+            return fetch('http://localhost:81/todoApp/api/health')
+                .then(response => response.json())
+                .then(json => dispatch(
+                    { type: "CHECK_HEALTH", status: json }))
+                .catch(err => dispatch(
+                    { type: "ERROR_FETCH",msg: "Failed to fetch data" }))
+        }
+    }
 
 
+
+        

@@ -73,14 +73,21 @@ function Middleware1(request, response, next) {
   });
   
   next();
+  }else{
+    next();
   }
 }
 
 
 app.use(Middleware1);
 
+
+const healthstatus={
+  status: "Node server is up and running on port 81"
+}
+
 app.get('/todoApp/api/health', function(req, res) {
-  res.send('Node server is up and running on port 81');
+  res.json(healthstatus);
   
 });
  

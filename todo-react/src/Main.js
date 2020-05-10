@@ -14,8 +14,10 @@ class Main extends Component{
   constructor(){
       super()
   }
+  
   componentDidMount() {
     this.props.fetchData()  
+
   }
   render(){
     return (

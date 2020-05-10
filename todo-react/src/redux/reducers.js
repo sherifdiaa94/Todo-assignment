@@ -18,14 +18,16 @@ function list(state=[],action){ //initial state will be the inital todo list    
         return state.filter(item=>item.id !== action.todoID);
     }else if(action.type==="CHANGE_TODO"){
         return state.map(todo=>todo.id !== action.todoID ? todo : {...todo,item: todotemp.item});  //todotemp.item will be action.todo.item
-    }else if(action.type==="FetchData"){
-        return ( action.datatest )
+    }else if(action.type==="FETCH_DATA"){
+        return ( action.todolist )
     }else if(action.type==="ERROR_FETCH"){
         return {...state,error:action.msg}
     }else if(action.type==="ERROR_ADD"){
         return {...state,error:action.msg}
     }else if(action.type==="ERROR_REMOVE"){
         return {...state,error:action.msg}
+    }else if(action.type==="CHECK_HEALTH"){
+        return { ...state,status:action.status }
     }else{ 
         return state
     }
