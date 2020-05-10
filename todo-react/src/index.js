@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
 import Main from './Main';
 import {createStore, applyMiddleware} from 'redux';
 import rootReducer from './redux/reducers'
