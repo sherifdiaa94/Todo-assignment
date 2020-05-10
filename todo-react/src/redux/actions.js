@@ -1,9 +1,42 @@
-export function addtodo(todo){
+import axios from 'axios';
+
+export const addtodo = ({ id, item }) => {
+    return dispatch => {
+      //dispatch(addTodoStarted());
+  
+      axios
+        .post(`http://localhost:81/todoApp/api/todos`, {
+          id,
+          item
+        })
+        .then(res => {
+          dispatch(addTodoSuccess({ id, item }));
+        })
+        .catch(err => {
+          dispatch(addTodoFailure(err.message));
+        });
+    };
+  };
+  const addTodoFailure = error => ({
+    type: 'ADD_TODO_FAILURE',
+    payload: {
+      error
+    }
+  });
+
+  export function addTodoSuccess(todo){
     return{
         type: 'ADD_TODO',
         todo
     }
 }
+
+// export function addTodo(todo){
+//     return{
+//         type: 'ADD_TODO',
+//         todo
+//     }
+// }
 
 export function removetodo(todoID){
     console.log(todoID)

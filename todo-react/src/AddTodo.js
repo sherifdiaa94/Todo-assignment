@@ -16,6 +16,7 @@ class AddTodo extends Component{
       this.setState({ input: e.target.value});
     }
     handleClick(e) {
+      if(this.state){
       const todoitem= this.state.input;
       console.log(todoitem);
       const newtodo={
@@ -26,6 +27,7 @@ class AddTodo extends Component{
           this.props.addtodo(newtodo)
           this.setState({ input: "" });
       }
+    }
     }
     handleSubmit(event){
       event.preventDefault();  //To stop the reloading of the page when pressing submit

@@ -13,7 +13,8 @@ function empty(state=[],action){
 function list(state=[],action){ //initial state will be the inital todo list    set state=[] to make it initially empty untill get data from node
    
     if (action.type==="ADD_TODO"){
-        console.log(state);
+        console.log("Inside add");
+        console.log(action.todo);
         return [...state,action.todo]; //todotemp will be changed to action.todo to take the new todo
     }else if(action.type==="REMOVE_TODO"){
         return state.filter(item=>item.id !== action.todoID);
