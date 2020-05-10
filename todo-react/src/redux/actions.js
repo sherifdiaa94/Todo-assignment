@@ -18,10 +18,8 @@ export const addtodo = ({ id, item }) => {
     };
   };
   const addTodoFailure = error => ({
-    type: 'ADD_TODO_FAILURE',
-    payload: {
-      error
-    }
+    type: 'ERROR',
+    msg: error
   });
 
   export function addTodoSuccess(todo){
@@ -38,13 +36,42 @@ export const addtodo = ({ id, item }) => {
 //     }
 // }
 
-export function removetodo(todoID){
-    console.log(todoID)
+
+export const removetodo = (id) => {
+    return dispatch => {
+      //dispatch(addTodoStarted());
+  
+      axios
+        .delete(`http://localhost:81/todoApp/api/todos/${id}`)
+        .then(res => {
+          dispatch(removeTodoSuccess(id));
+        })
+        .catch(err => {
+          dispatch(removeTodoFailure(err.message));
+        });
+    };
+  };
+
+  export function removeTodoSuccess(todoID){
+    //console.log(todoID)
     return{
         type: 'REMOVE_TODO',
         todoID
     }
 }
+const removeTodoFailure = error => ({
+    type: 'ERROR',
+    msg: error
+  });
+
+
+// export function removetodo(todoID){
+//     console.log(todoID)
+//     return{
+//         type: 'REMOVE_TODO',
+//         todoID
+//     }
+// }
 
 
 export function changetodo(todoID){
@@ -62,7 +89,7 @@ export const fetchData = () => {
             .then(json => dispatch(
                 { type: "FetchData", datatest: json }))
             .catch(err => dispatch(
-                { type: "ERROR",msg: "Unable to fetch data" }))
+                { type: "ERRORFETCH",msg: "Failed to fetch data" }))
     }}
 
 
