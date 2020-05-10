@@ -129,5 +129,23 @@ app.delete('/todoApp/api/todos/:id', function (req,res){
   }
 });
 
+
+
+app.patch('/todoApp/api/todos/:id', function (req,res){
+  if(todoList.length!==0){
+  var indexof = todoList.findIndex(obj => obj.id==req.params.id);
+  if (indexof<0){
+    res.send('Invalid Item');
+    }
+  else{
+        todoList[indexof].item=req.body.item
+        res.json(todoList);
+    }
+  }
+  else{
+    res.json(todoList);
+  }
+});
+
 app.listen(81);
 
