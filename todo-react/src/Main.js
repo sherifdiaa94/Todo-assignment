@@ -4,13 +4,20 @@ import { Button,ListItem,OrderedList,Tile,Form, FormGroup,TextInput } from "carb
 import store from './index'
 import TodoList from './todolist.js'
 import AddTodo from './AddTodo'
+import { fetchData } from './redux/actions'
+
+import {connect} from 'react-redux'
+import * as actions from './redux/actions'
+import {bindActionCreators} from 'redux'
 
 class Main extends Component{
   constructor(){
       super()
   }
+  componentDidMount() {
+    this.props.fetchData()  
+  }
   render(){
-    //console.log(this.props);
     return (
       
       <div className="App">
@@ -19,36 +26,26 @@ class Main extends Component{
         </Tile>
         <AddTodo {...this.props}/>
         <TodoList {...this.props}/>
-        {/* <Form>
-        <FormGroup>
-          <TextInput
-            //helperText="Enter below "
-            id="test2"
-            invalidText="Invalid error message."
-            placeholder="Enter here"
-          />
-        </FormGroup>
-        <Button>
-          Submit
-        </Button>
-        <OrderedList className="List">
-              <ListItem>{this.props.list[0].item}</ListItem>
-              <ListItem>{this.props.list[1].item}</ListItem>
-              <ListItem>{this.props.list[2].item}</ListItem>
-        </OrderedList>
-        </Form> */}
+        
       </div>
 
     );
   }
 }
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <Button>Button</Button>
-//     </div>
-//   );
-// }
+function mapStateToProps(state){
+  return {
+      list: state.list
+  }
+}
 
-export default Main;
+// const mapDispatchToProps = (dispatch) => {
+//   return { onFetchData: () => dispatch(fetchData()) }
+// }
+function mapDispatchToProps(dispatch){
+  return bindActionCreators(actions,dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Main)
+
+//export default Main;

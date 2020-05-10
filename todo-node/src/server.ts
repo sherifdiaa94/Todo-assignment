@@ -1,8 +1,10 @@
 import * as express from 'express';
 var bodyParser = require('body-parser');
+var cors = require("cors");
 
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json({ type: 'application/*+json' }));
@@ -12,11 +14,11 @@ app.use(bodyParser.text({ type: 'text/plain' }));
 
 let todoList=[
   {id:0,
-    item:"First todo item"},
+    item:"Study"},
     {id:1,
-    item:"Second todo item"},
+    item:"Walk"},
     {id:2,
-    item:"Third todo item"}
+    item:"Work"}
 ];
 
 //express.Request
