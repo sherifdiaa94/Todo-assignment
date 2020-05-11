@@ -27,6 +27,11 @@ let todoList=[
 //express.Request
 function Middleware1(request, response, next) {
   if (request.path!=="/todoApp/api/health"){
+    if((JSON.stringify(request.headers['csrf-token'])) && (JSON.stringify(request.headers['x-gateway-apikey']))){
+      console.log("Found")
+    }else{
+      console.log("Not Found")
+    }
   console.log(`${request.method} ${request.path}`);
   var fs = require('fs');
   // var jsonObj = JSON.parse(request);
@@ -85,6 +90,28 @@ function Middleware1(request, response, next) {
 app.use(Middleware1);
 
 
+
+
+function Middleware2(request, response, next) {
+  if (request.path!=="/todoApp/api/health"){
+    if((JSON.stringify(request.headers['csrf-token'])) && (JSON.stringify(request.headers['x-gateway-apikey']))){
+      console.log("Found")
+      request.headerFound="Found"
+      //response.Headers("Found")
+      //return "Found"
+    }else{
+      console.log("Not Found")
+      request.headerFound="NotFound"
+      //response.json({"Headers":"Not found"})
+      //return {"Headers":"Not found"}
+    }
+    next()
+  }
+  next()
+}
+
+app.use(Middleware2);
+
 const healthstatus={
   status: "Node server is up and running on port 81"
 }
@@ -95,7 +122,11 @@ app.get('/todoApp/api/health', function(req, res) {
 });
  
 app.get('/todoApp/api/todos', function(req, res) {
+  if (req.headerFound==="Found"){
   res.json(todoList);
+  }else{
+    res.json({"Headers":"Not found"})
+  }
   //res.send(todoList);
   //Middleware1(req,res,next)
 });
@@ -105,49 +136,67 @@ app.get('*', function(req, res){
 });
 
 app.post('/todoApp/api/todos', function (req,res){
+  if (req.headerFound==="Found"){
+    todoList.push(req.body);
+    res.json(todoList);
+    }else{
+      res.json({"Headers":"Not found"})
+    }
   //console.log(req.body)
-  todoList.push(req.body);
+  //todoList.push(req.body);
   //console.log("Item added")
-  res.json(todoList);
+  //res.json(todoList);
 });
 
 app.delete('/todoApp/api/todos/:id', function (req,res){
-
-  if(todoList.length!==0){
-  var indexof = todoList.findIndex(obj => obj.id==req.params.id);
-  if (indexof<0){
-    res.send('Invalid Item');
-    }
-  else{
-        console.log(todoList[indexof])
-        const index=req.params.id
-      if (indexof > -1) {
-        todoList.splice(indexof, 1);
+  //console.log("Inside delete"+req.headerFound)
+  if (req.headerFound==="Found"){
+    if(todoList.length!==0){
+      var indexof = todoList.findIndex(obj => obj.id==req.params.id);
+      if (indexof<0){
+        res.send('Invalid Item');
+        }
+      else{
+            //console.log(todoList[indexof])
+            const index=req.params.id
+          if (indexof > -1) {
+            todoList.splice(indexof, 1);
+          }
+          res.json(todoList);
+        }
       }
-      res.json(todoList);
+      else{
+        res.json(todoList);
+      }
+    }else{
+      res.json({"Headers":"Not found"})
     }
-  }
-  else{
-    res.json(todoList);
-  }
+
+  
 });
 
 
 
 app.patch('/todoApp/api/todos/:id', function (req,res){
-  if(todoList.length!==0){
-  var indexof = todoList.findIndex(obj => obj.id==req.params.id);
-  if (indexof<0){
-    res.send('Invalid Item');
-    }
-  else{
-        todoList[indexof].completed=req.body.completed
+
+  if (req.headerFound==="Found"){
+    if(todoList.length!==0){
+      var indexof = todoList.findIndex(obj => obj.id==req.params.id);
+      if (indexof<0){
+        res.send('Invalid Item');
+        }
+      else{
+            todoList[indexof].completed=req.body.completed
+            res.json(todoList);
+        }
+      }
+      else{
         res.json(todoList);
+      }
+    }else{
+      res.json({"Headers":"Not found"})
     }
-  }
-  else{
-    res.json(todoList);
-  }
+ 
 });
 
 app.listen(81);

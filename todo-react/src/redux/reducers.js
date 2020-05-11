@@ -18,7 +18,6 @@ function list(state=[],action){ //initial state will be the inital todo list    
     }else if(action.type==="REMOVE_TODO"){
         return state.filter(item=>item.id !== action.todoID);
     }else if(action.type==="CHANGE_TODO"){
-        console.log(action.todo)
         return action.todo
         //return state.map(todo=>todo.id !== action.todoID ? todo : {...todo,completed: action.todo.item});  //todotemp.item will be action.todo.item
     }else if(action.type==="FETCH_DATA"){

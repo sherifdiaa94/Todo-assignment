@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 export const addtodo = ({ id, item,completed }) => {
+    const ApiKey="87654321"
+    const token="123456789"
     return dispatch => {
       //dispatch(addTodoStarted());
   
@@ -9,7 +11,13 @@ export const addtodo = ({ id, item,completed }) => {
           id,
           item,
           completed
-        })
+        },
+        {
+            headers: {
+              "x-Gateway-ApiKey": ApiKey,
+              "csrf-token": token
+            }
+          })
         .then(res => {
           dispatch(addTodoSuccess({ id, item,completed }));
         })
@@ -39,11 +47,19 @@ export const addtodo = ({ id, item,completed }) => {
 
 
 export const removetodo = (id) => {
+    const ApiKey="87654321"
+    const token="123456789"
     return dispatch => {
       //dispatch(addTodoStarted());
   
       axios
-        .delete(`http://localhost:81/todoApp/api/todos/${id}`)
+        .delete(`http://localhost:81/todoApp/api/todos/${id}`,
+        {
+            headers: {
+              "x-Gateway-ApiKey": ApiKey,
+              "csrf-token": token
+            }
+          })
         .then(res => {
           dispatch(removeTodoSuccess(id));
         })
@@ -76,8 +92,8 @@ const removeTodoFailure = error => ({
 
 
 export function changetodo(id,completed){
-    console.log("Inside actions")
-    console.log(id,completed)
+    const ApiKey="87654321"
+    const token="123456789"
     return dispatch => {
         //dispatch(addTodoStarted());
         // const completed=todo.completed
@@ -85,7 +101,13 @@ export function changetodo(id,completed){
         axios
           .patch(`http://localhost:81/todoApp/api/todos/${id}`, {
             'completed': completed
-          })
+          },
+          {
+              headers: {
+                "x-Gateway-ApiKey": ApiKey,
+                "csrf-token": token
+              }
+            })
           .then(res => {
             dispatch(changeTodoSuccess(res.data));
           })
@@ -109,9 +131,16 @@ const changeTodoFailure = error => ({
   });
 
 export const fetchData = () => {
-
+    const ApiKey="87654321"
+    const token="123456789"
     return (dispatch) => {
-        return fetch('http://localhost:81/todoApp/api/todos')
+        return fetch('http://localhost:81/todoApp/api/todos',
+        {
+            headers: {
+              "x-Gateway-ApiKey": ApiKey,
+              "csrf-token": token
+            }
+          })
             .then(response => response.json())
             .then(json => dispatch(
                 { type: "FETCH_DATA", todolist: json }))
