@@ -1,16 +1,17 @@
 import axios from 'axios';
 
-export const addtodo = ({ id, item }) => {
+export const addtodo = ({ id, item,completed }) => {
     return dispatch => {
       //dispatch(addTodoStarted());
   
       axios
         .post(`http://localhost:81/todoApp/api/todos`, {
           id,
-          item
+          item,
+          completed
         })
         .then(res => {
-          dispatch(addTodoSuccess({ id, item }));
+          dispatch(addTodoSuccess({ id, item,completed }));
         })
         .catch(err => {
           dispatch(addTodoFailure(err.message));
@@ -74,12 +75,38 @@ const removeTodoFailure = error => ({
 // }
 
 
-export function changetodo(todoID){
+export function changetodo(id,completed){
+    console.log("Inside actions")
+    console.log(id,completed)
+    return dispatch => {
+        //dispatch(addTodoStarted());
+        // const completed=todo.completed
+        // const id =todo.id
+        axios
+          .patch(`http://localhost:81/todoApp/api/todos/${id}`, {
+            'completed': completed
+          })
+          .then(res => {
+            dispatch(changeTodoSuccess(res.data));
+          })
+          .catch(err => {
+            dispatch(changeTodoFailure(err.message));
+          });
+      };
+}
+
+export function changeTodoSuccess(todo){
+    console.log(todo)
     return{
         type: 'CHANGE_TODO',
-        todoID
+        todo
     }
 }
+
+const changeTodoFailure = error => ({
+    type: 'ERROR_REMOVE',
+    msg: "Failed to change item to the list"
+  });
 
 export const fetchData = () => {
 

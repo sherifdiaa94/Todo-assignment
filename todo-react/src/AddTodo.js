@@ -21,7 +21,8 @@ class AddTodo extends Component{
       console.log(todoitem);
       const newtodo={
           id: Number(new Date()),
-          item:todoitem
+          item:todoitem,
+          completed:"false"
       }
       if (todoitem){
           this.props.addtodo(newtodo)
@@ -36,7 +37,8 @@ class AddTodo extends Component{
       console.log(todoitem);
       const newtodo={
           id: Number(new Date()),
-          item:todoitem
+          item:todoitem,
+          completed:"false"
       }
       if (todoitem){
           this.props.addtodo(newtodo)

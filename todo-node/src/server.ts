@@ -14,11 +14,14 @@ app.use(bodyParser.text({ type: 'text/plain' }));
 
 let todoList=[
   {id:0,
-    item:"Study"},
+    item:"Study",
+    completed:"false"},
     {id:1,
-    item:"Walk"},
+    item:"Walk",
+    completed:"false"},
     {id:2,
-    item:"Work"}
+    item:"Work",
+    completed:"false"}
 ];
 
 //express.Request
@@ -138,7 +141,7 @@ app.patch('/todoApp/api/todos/:id', function (req,res){
     res.send('Invalid Item');
     }
   else{
-        todoList[indexof].item=req.body.item
+        todoList[indexof].completed=req.body.completed
         res.json(todoList);
     }
   }
