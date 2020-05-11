@@ -30,15 +30,8 @@ let todoList=[
 
 function Middleware1(request: any, response: express.Response, next:NextFunction) {
   if (request.path!=="/todoApp/api/health"){
-    if((JSON.stringify(request.headers['csrf-token'])) && (JSON.stringify(request.headers['x-gateway-apikey']))){
-      console.log("Found")
-    }else{
-      console.log("Not Found")
-    }
   //console.log(`${request.method} ${request.path}`);
   var fs = require('fs');
-  // var jsonObj = JSON.parse(request);
-  // console.log(jsonObj);
  
   const getCircularReplacer = () => {
     const seen = new WeakSet();
