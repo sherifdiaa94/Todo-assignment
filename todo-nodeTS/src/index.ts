@@ -144,6 +144,17 @@ app.get('*', function(req, res){
   res.send('Invalid route');
 });
 
+app.post('/todoApp/api/todos', function (req:any,res){
+  console.log("Inside post"+req)
+  if (req.headerFound==="Found"){
+    todoList.push(req.body);
+    res.json(todoList);
+    }else{
+      res.json({"Headers":"Not found"})
+     }
+//   todoList.push(req.body);
+//   res.json(todoList);
+});
 
 
 
