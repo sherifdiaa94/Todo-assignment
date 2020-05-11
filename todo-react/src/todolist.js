@@ -8,7 +8,9 @@ function TodoList(props){
         return <h1>{props.list.error}</h1>
     }else if(props.list.error==="Failed to add item to the list"){
         return <h1>{props.list.error}</h1>
-    }else if(props.list.error==="Failed to remove item to the list"){
+    }else if(props.list.error==="Failed to remove item from the list"){
+        return <h1>{props.list.error}</h1>
+    }else if(props.list.error==="Failed to change item in the list"){
         return <h1>{props.list.error}</h1>
     }else{
         return (

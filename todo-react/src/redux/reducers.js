@@ -29,6 +29,8 @@ function list(state=[],action){ //initial state will be the inital todo list    
         return {...state,error:action.msg}
     }else if(action.type==="ERROR_REMOVE"){
         return {...state,error:action.msg}
+    }else if(action.type==="ERROR_CHANGE"){
+        return {...state,error:action.msg}
     }else if(action.type==="CHECK_HEALTH"){
         return { ...state,status:action.status }
     }else{ 

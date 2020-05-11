@@ -62,7 +62,7 @@ export const removetodo = (id) => {
 }
 const removeTodoFailure = error => ({
     type: 'ERROR_REMOVE',
-    msg: "Failed to remove item to the list"
+    msg: "Failed to remove item from the list"
   });
 
 
@@ -104,8 +104,8 @@ export function changeTodoSuccess(todo){
 }
 
 const changeTodoFailure = error => ({
-    type: 'ERROR_REMOVE',
-    msg: "Failed to change item to the list"
+    type: 'ERROR_CHANGE',
+    msg: "Failed to change item in the list"
   });
 
 export const fetchData = () => {
