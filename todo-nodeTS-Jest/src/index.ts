@@ -143,7 +143,8 @@ app.post('/todoApp/api/todos', function (req:any,res){
     todoList.push(req.body);
     res.json(todoList);
     }else{
-      res.json({"Headers":"Not found"})
+      res.status(404)
+      .json({"Headers":"Not found"})
      }
 });
 
@@ -169,7 +170,8 @@ app.delete('/todoApp/api/todos/:id', function (req:any,res){
         res.json(todoList);
       }
     }else{
-      res.json({"Headers":"Not found"})
+      res.status(404)
+      .json({"Headers":"Not found"})
     }
 
   
@@ -193,7 +195,8 @@ app.patch('/todoApp/api/todos/:id', function (req:any,res){
         res.json(todoList);
       }
     }else{
-      res.json({"Headers":"Not found"})
+      res.status(404)
+      .json({"Headers":"Not found"})
     }
 });
 
