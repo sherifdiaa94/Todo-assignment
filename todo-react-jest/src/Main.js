@@ -19,7 +19,7 @@ class Main extends Component{
   render(){
     return (
       
-      <div className="App" data-test="Mainheader">
+      <div className="App" data-test="appComponent">
         <Tile className="Title-header">
           Todo List
         </Tile>

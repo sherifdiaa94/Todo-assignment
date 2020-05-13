@@ -1,5 +1,7 @@
-//For defining a global function to be used by all the test classes
 import { checkPropTypes } from 'prop-types';
+import { applyMiddleware, createStore } from 'redux';
+import rootReducer from '../src/redux/reducer';
+import { middlewares } from '../src/store';
 
 export const findByTestAttr=(component,attr)=>{
     const wrapper=component.find(`[data-test='${attr}']`);
@@ -10,4 +12,10 @@ export const findByTestAttr=(component,attr)=>{
 export const checkProps=(component,expectedProps)=>{
     const propErr= checkPropTypes(component.propTypes, expectedProps,'props',component.name);
     return propErr
+};
+
+
+export const testStore = (initialState) => {
+    const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
+    return createStoreWithMiddleware(rootReducer, initialState);
 };
