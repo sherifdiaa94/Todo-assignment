@@ -17,55 +17,58 @@ it('Testing to see if Jest works', () => {
       done()
       })  
     
-      it('Testing GET todos API', async done => {
-        const todoList=[
-          {id:0,
-            item:"Study",
-            completed:"false"},
-            {id:1,
-            item:"Walk",
-            completed:"false"},
-            {id:2,
-            item:"Work",
-            completed:"false"}
-        ];
-        
-        const response = await request.get('/todoApp/api/todos')
-        .set({
-          "x-Gateway-ApiKey": "123",
-          "csrf-token": "421"
-          }
-        )
-        expect(response.status).toBe(200)
-        expect(response.body).toEqual(todoList)
-        done()
-        })  
-
-        it('Testing GET todos API without headers', async done => {
-          const todoList=[
-            {id:0,
-              item:"Study",
-              completed:"false"},
-              {id:1,
-              item:"Walk",
-              completed:"false"},
-              {id:2,
-              item:"Work",
-              completed:"false"}
-          ];
-          
-          const response = await request.get('/todoApp/api/todos')
-          
-          expect(response.status).toBe(404)
-          expect(response.body.Headers).toBe("Not found")
-          done()
-          }) 
+      
   })
 
 
+describe('Testing GET requests', () => {
+  it('Testing GET todos API', async done => {
+    const todoList=[
+      {id:0,
+        item:"Study",
+        completed:"false"},
+        {id:1,
+        item:"Walk",
+        completed:"false"},
+        {id:2,
+        item:"Work",
+        completed:"false"}
+    ];
+    
+    const response = await request.get('/todoApp/api/todos')
+    .set({
+      "x-Gateway-ApiKey": "123",
+      "csrf-token": "421"
+      }
+    )
+    expect(response.status).toBe(200)
+    expect(response.body).toEqual(todoList)
+    done()
+    })  
+
+    it('Testing GET todos API without headers', async done => {
+      const todoList=[
+        {id:0,
+          item:"Study",
+          completed:"false"},
+          {id:1,
+          item:"Walk",
+          completed:"false"},
+          {id:2,
+          item:"Work",
+          completed:"false"}
+      ];
+      
+      const response = await request.get('/todoApp/api/todos')
+      
+      expect(response.status).toBe(404)
+      expect(response.body.Headers).toBe("Not found")
+      done()
+      }) 
+})
 
 
-  describe('Testing POST requests App', () => {
+  describe('Testing POST requests', () => {
   
       it('Testing POST todos API', async done => {
         const todoList=[
@@ -125,9 +128,7 @@ it('Testing to see if Jest works', () => {
   })
 
 
-
-
-  describe('Testing Delete requests App', () => {
+  describe('Testing Delete requests', () => {
   
     it('Testing Delete todos API', async done => {
       const todoList=[
@@ -175,10 +176,68 @@ it('Testing to see if Jest works', () => {
               completed: "false"
             }
         ];
+        todoList.splice(2, 1);
         const response = await request.delete('/todoApp/api/todos/2')
         .send(todoList)
         expect(response.status).toBe(404)
         expect(response.body.Headers).toBe("Not found")
         done()
         }) 
+})
+
+
+describe('Testing PATCH requests', () => {
+  
+  it('Testing PATCH todos API', async done => {
+    const todoList=[
+      {id:0,
+        item:"Study",
+        completed:"false"},
+        {id:1,
+        item:"Walk",
+        completed:"true"},
+       {
+          id:3,
+          item: "Play",
+          completed: "false"
+        }
+    ];
+    const response = await request.patch('/todoApp/api/todos/1')
+    .send({
+      completed: "true"
+    })
+    .set({
+      "x-Gateway-ApiKey": "123",
+      "csrf-token": "421"
+      }
+    )
+    expect(response.status).toBe(200)
+    //console.log(response)
+    expect(response.body).toEqual(todoList)
+    done()
+    })  
+
+    it('Testing PATCH todos API without headers', async done => {
+      const todoList=[
+        {id:0,
+          item:"Study",
+          completed:"false"},
+          {id:1,
+          item:"Walk",
+          completed:"false"},
+          {id:2,
+          item:"Work",
+          completed:"false"},
+          {
+            id:3,
+            item: "Play",
+            completed: "false"
+          }
+      ];
+      const response = await request.patch('/todoApp/api/todos/2')
+      .send(todoList)
+      expect(response.status).toBe(404)
+      expect(response.body.Headers).toBe("Not found")
+      done()
+      }) 
 })
