@@ -129,7 +129,7 @@ app.get('/todoApp/api/todos', function(req:any, res) {
     res.status(404)
        .json({"Headers":"Not found"})
   }
-  res.send(todoList);
+  //res.send(todoList);
   //res.status(200).json(todoList);
 });
 
@@ -199,5 +199,7 @@ app.patch('/todoApp/api/todos/:id', function (req:any,res){
 
 
 app.listen(81);
-//export default app
+export default todoList
 module.exports = app
+
+//exports.todoList = todoList;
