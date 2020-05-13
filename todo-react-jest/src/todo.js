@@ -11,7 +11,7 @@ function todo(props){
     <ListItem style={checkboxStyle(todo.completed)} >
         <input type="checkbox" onChange={() => toggleCompleted(props)}/>
             {todo.item}
-            <button onClick={()=>{
+            <button className="buttonComponent"onClick={()=>{
         props.removetodo(todo.id)
     }}>Remove</button>
         </ListItem>

@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 import * as actions from './redux/actions'
 import {bindActionCreators} from 'redux'
 
-class App extends Component{
+class Main extends Component{
   constructor(){
       super()
   }
@@ -45,6 +45,6 @@ function mapDispatchToProps(dispatch){
   return bindActionCreators(actions,dispatch)
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App)
+export default connect(mapStateToProps,mapDispatchToProps)(Main)
 
 //export default Main;
